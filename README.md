@@ -31,6 +31,7 @@
 - comment
   - comment_id
   - user_id
+  - article_id
   - content
   - parent_id
   - root_id
