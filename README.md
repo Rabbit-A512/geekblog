@@ -1,4 +1,4 @@
-# Geeklog E-R diagram 
+# Geeklog DOCS
 
 ## Entity
 
@@ -8,7 +8,7 @@
   - password: varchar
   - nickname: varchar
   - avatar(头像): varchar
-  - bio(简介): varchar　
+  - bio(简介): varchar
   - is_admin: bool
 - star
   - star_id
@@ -49,7 +49,7 @@
   - user_id
   - authority_id
 
-# Geeklog Api
+## Geeklog Api
 
 ## 管理后台Api(/admin/*)
 
@@ -387,4 +387,27 @@ res:
         "name": "back-end",
         "description": "other description"
     }
+```
+
+### Admin Authorities
+
+GET /admin/authorities
+
+res:
+
+```json
+{
+    "code": 200,
+    "message": "success",
+    "data": [
+        {
+            "authority_id": 1,
+            "name": "can_comment"
+        },
+        {
+            "authority_id": 2,
+            "name": "can_write_article"
+        }
+    ]
+}
 ```
