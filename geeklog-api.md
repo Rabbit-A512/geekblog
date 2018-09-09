@@ -337,3 +337,26 @@ res:
         "description": "other description"
     }
 ```
+
+### Admin Authorities
+
+GET /admin/authorities
+
+res:
+
+```json
+{
+    "code": 200,
+    "message": "success",
+    "data": [
+        {
+            "authority_id": 1,
+            "name": "can_comment"
+        },
+        {
+            "authority_id": 2,
+            "name": "can_write_article"
+        }
+    ]
+}
+```
