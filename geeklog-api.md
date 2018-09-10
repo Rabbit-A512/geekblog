@@ -181,7 +181,10 @@ req:
 res:
 
 ```json
-    {
+{
+    "code": 200,
+    "message": "success",
+    "data": {
         "article_id": 2,
         "title": "a title",
         "created_at": 12211033,
@@ -192,6 +195,7 @@ res:
         "tags": "java,python,sql",
         "display": false
     }
+}
 ```
 
 ### Admin Comments
