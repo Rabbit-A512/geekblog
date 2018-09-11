@@ -86,7 +86,8 @@ req:
 ```json
 {
     "nickname": "another",
-    "password": "234567"
+    "password": "234567",
+    "bio": "another bio"
 }
 ```
 
@@ -222,4 +223,3 @@ res:
 ```
 
 ## Comment
-
