@@ -2,6 +2,31 @@
 
 ## User
 
+### User Login
+
+POST /login
+
+req:
+
+```json
+{
+    "username": "syf",
+    "password": "123456"
+}
+```
+
+res:
+
+```json
+{
+    "code": 200,
+    "message": "Success",
+    "data": {
+        "token": "1j312lnn21312"
+    }
+}
+```
+
 GET /users/:user_id
 
 res:
@@ -60,7 +85,8 @@ req:
 
 ```json
 {
-    "nickname": "another"
+    "nickname": "another",
+    "password": "234567"
 }
 ```
 
