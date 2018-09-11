@@ -1,98 +1,8 @@
-# Geeklog Api
+# Core Api of Geeklog
 
-## 管理后台Api(/admin/*)
+## User
 
-### User
-
-GET /admin/users?page=1&size=20 (不返回admin))
-
-res:
-
-```json
-{
-    "code": 700,
-    "message": "Success or failure",
-    "data": {
-        "total": 342,
-        "users": [
-            {
-                "user_id": 1,
-                "username": "loginname",
-                "nickname": "a-nick-name",
-                "avatar": "http://....",
-                "is_admin": false,
-                "can_comment": true,
-                "can_write": true
-            },
-            {
-                "user_id": 2,
-                "username": "loginname",
-                "nickname": "a-nick-name",
-                "avatar": "http://....",
-                "is_admin": false,
-                "can_comment": true,
-                "can_write_article": true
-            }
-        ]
-    }
-}
-```
-
-### Forbidden
-
-POST /admin/forbiddens
-
-req:
-
-```json
-{
-    "user_id": 1,
-    "authority_id": 1
-}
-```
-
-res:
-
-```json
-{
-    "code": 200,
-    "message": "Success or failure..",
-    "data": {
-        "forbidden_id": 1,
-        "user_id": 1,
-        "authority_id": 1
-    }
-}
-```
-
-DELETE /admin/forbiddens/:user_id/:authority_id
-
-res:
-
-```json
-{
-    "code": 200,
-    "message": "Successfully deleted",
-    "data": {
-        "forbidden_id": 1,
-        "user_id": 1,
-        "authority_id": 1
-    }
-}
-```
-
-### Admin Login
-
-POST /admin/login
-
-req:
-
-```json
-{
-    "username": "admin",
-    "password": "123456"
-}
-```
+GET /users/:user_id
 
 res:
 
@@ -101,14 +11,64 @@ res:
     "code": 200,
     "message": "Success",
     "data": {
-        "token": "12n3n12kkj21s"
+        "user_id": 1,
+        "username": "loginname",
+        "nickname": "a-nick-name",
+        "bio": "some info about me",
+        "avatar": "http://....",
+        "is_admin": false,
+        "can_comment": true,
+        "can_write": true
     }
 }
 ```
 
-### Admin Article
+POST /users (注册)
 
-GET /admin/articles?category_id=1&page=1&size=30
+req:
+
+```json
+{
+    "username": "syf",
+    "password": "123456",
+    "nickname": "rabbit-a512",
+    "bio": "some info about me"
+}
+```
+
+res:
+
+```json
+{
+    "code": 200,
+    "message": "success",
+    "data": {
+        "username": "loginname",
+        "nickname": "a-nick-name",
+        "avatar": "指向默认图片的路径",
+        "bio": "some info about me",
+        "is_admin": false,
+        "can_comment": true,
+        "can_write": true
+    }
+}
+```
+
+PUT /users/:user_id (头像路径单独维护)
+
+req:
+
+```json
+{
+    "nickname": "another"
+}
+```
+
+DELETE (暂定不做)
+
+## Article
+
+GET /articles?page=1&size=30
 
 res:
 
@@ -146,16 +106,28 @@ res:
 }
 ```
 
-DELETE /admin/articles/:article_id
+POST /articles
+
+req:
+
+```json
+{
+    "title": "a title",
+    "content": "more content",
+    "user_id": 2,
+    "category_id": 2,
+    "tags": "vue,typescript,webpack"
+}
+```
 
 res:
 
 ```json
 {
     "code": 200,
-    "message": "Delete successfully",
+    "message": "success",
     "data": {
-        "article_id": 2,
+        "article_id": 1,
         "title": "a title",
         "created_at": 12211033,
         "modified_at": 16125652,
@@ -168,13 +140,16 @@ res:
 }
 ```
 
-PUT /admin/articles/:article_id
+PUT /articles/:article_id
 
 req:
 
 ```json
 {
-    "display": false
+    "title": "a title",
+    "content": "more content",
+    "category_id": 2,
+    "tags": "vue,typescript,webpack"
 }
 ```
 
@@ -185,7 +160,7 @@ res:
     "code": 200,
     "message": "success",
     "data": {
-        "article_id": 2,
+        "article_id": 1,
         "title": "a title",
         "created_at": 12211033,
         "modified_at": 16125652,
@@ -193,48 +168,12 @@ res:
         "user_id": 1,
         "category_id": 2,
         "tags": "java,python,sql",
-        "display": false
+        "display": true
     }
 }
 ```
 
-### Admin Comments
-
-GET /admin/comments?article_id=2&root_id=1&page=1&size=30
-
-res:
-
-```json
-{
-    "code": 200,
-    "message": "message",
-    "data": {
-        "total": 560,
-        "comments": [
-            {
-                "comment_id": 1,
-                "user_id": 1,
-                "article_id": 2,
-                "content": "some demo content",
-                "parent_id": 2,
-                "root_id": 1,
-                "created_at": 1244213131
-            },
-            {
-                "comment_id": 2,
-                "user_id": 1,
-                "article_id": 2,
-                "content": "some demo content",
-                "parent_id": 2,
-                "root_id": 1,
-                "created_at": 1244213131
-            }
-        ]
-    }
-}
-```
-
-DELETE /admin/comments/:comment_id
+DELETE /articles/:article_id
 
 res:
 
@@ -243,124 +182,17 @@ res:
     "code": 200,
     "message": "success",
     "data": {
-        "comment_id": 2,
+        "article_id": 1,
+        "title": "a title",
+        "created_at": 12211033,
+        "modified_at": 16125652,
+        "content": "some content",
         "user_id": 1,
-        "article_id": 2,
-        "content": "some demo content",
-        "parent_id": 2,
-        "root_id": 1,
-        "created_at": 1244213131
-    }
-}
-```
-
-### Manage Category
-
-GET /admin/categories
-
-res:
-
-```json
-{
-    "code": 200,
-    "message": "fetch success",
-    "data": [
-        {
-            "category_id": 1,
-            "name": "frontend",
-            "description": "some descr"
-        },
-        {
-            "category_id": 2,
-            "name": "frontend",
-            "description": "some descr"
-        }
-    ]
-}
-```
-
-POST /admin/categories
-
-req:
-
-```json
-{
-    "name": "a cate",
-    "description": "describe it"
-}
-```
-
-res:
-
-```json
-{
-    "code": 200,
-    "message": "success",
-    "data": {
         "category_id": 2,
-        "name": "back-end",
-        "description": "other description"
+        "tags": "java,python,sql",
+        "display": true
     }
 }
 ```
 
-PUT /admin/categories/:category_id
-
-req:
-
-```json
-{
-    "name": "back-end",
-    "description": "other description"
-}
-```
-
-res:
-
-```json
-{
-    "code": 200,
-    "message": "success",
-    "data": {
-        "name": "back-end",
-        "description": "other description"
-    }
-}
-```
-
-DELETE /admin/categories/:category_id
-
-res:
-
-```json
-{
-    "code": 200,
-    "message": "success",
-    "data": {
-        "name": "back-end",
-        "description": "other description"
-    }
-```
-
-### Admin Authorities
-
-GET /admin/authorities
-
-res:
-
-```json
-{
-    "code": 200,
-    "message": "success",
-    "data": [
-        {
-            "authority_id": 1,
-            "name": "can_comment"
-        },
-        {
-            "authority_id": 2,
-            "name": "can_write_article"
-        }
-    ]
-}
-```
+## Comment
