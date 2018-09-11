@@ -22,7 +22,7 @@ res:
                 "avatar": "http://....",
                 "is_admin": false,
                 "can_comment": true,
-                "can_write": true
+                "can_write_article": true
             },
             {
                 "user_id": 2,

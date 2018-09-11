@@ -18,7 +18,7 @@ res:
         "avatar": "http://....",
         "is_admin": false,
         "can_comment": true,
-        "can_write": true
+        "can_write_article": true
     }
 }
 ```
@@ -49,7 +49,7 @@ res:
         "bio": "some info about me",
         "is_admin": false,
         "can_comment": true,
-        "can_write": true
+        "can_write_article": true
     }
 }
 ```
@@ -196,3 +196,4 @@ res:
 ```
 
 ## Comment
+
