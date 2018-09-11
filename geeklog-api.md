@@ -86,16 +86,86 @@ req:
 ```json
 {
     "nickname": "another",
-    "password": "234567",
     "bio": "another bio"
 }
 ```
 
-DELETE (暂定不做)
+res:
+
+```json
+{
+    "code": 200,
+    "message": "success",
+    "data": {
+        "username": "loginname",
+        "nickname": "a-nick-name",
+        "avatar": "指向默认图片的路径",
+        "bio": "some info about me",
+        "is_admin": false,
+        "can_comment": true,
+        "can_write_article": true
+    }
+}
+```
+
+### 修改用户密码
+
+POST /change-password
+
+req:
+
+```json
+{
+    "user_id": 1,
+    "old_password": "123456",
+    "new_password": "234567"
+}
+```
 
 ## Article
 
-GET /articles?page=1&size=30
+GET /articles/hot/:count (根据点赞数＋收藏数＋评论数排序，获取最热文章)
+
+res:
+
+```json
+{
+    "code": 200,
+    "message": "success",
+    "data": [
+        {
+            "article_id": 1,
+            "title": "a title",
+            "created_at": 12211033,
+            "modified_at": 16125652,
+            "content": "some content",
+            "user_id": 1,
+            "category_id": 2,
+            "tags": "java,python,sql",
+            "display": true,
+            "collect_count": 22,
+            "star_count": 23,
+            "comment_count": 320
+        },
+        {
+            "article_id": 2,
+            "title": "a title",
+            "created_at": 12211033,
+            "modified_at": 16125652,
+            "content": "some content",
+            "user_id": 1,
+            "category_id": 2,
+            "tags": "java,python,sql",
+            "display": true,
+            "collect_count": 22,
+            "star_count": 23,
+            "comment_count": 320
+        }
+    ]
+}
+```
+
+GET /articles?page=1&size=30&category_id=1
 
 res:
 
@@ -115,7 +185,10 @@ res:
                 "user_id": 1,
                 "category_id": 2,
                 "tags": "java,python,sql",
-                "display": true
+                "display": true,
+                "collect_count": 22,
+                "star_count": 23,
+                "comment_count": 320
             },
             {
                 "article_id": 2,
@@ -126,9 +199,37 @@ res:
                 "user_id": 1,
                 "category_id": 2,
                 "tags": "java,python,sql",
-                "display": true
+                "display": true,
+                "collect_count": 22,
+                "star_count": 23,
+                "comment_count": 320
             }
         ]
+    }
+}
+```
+
+GET /articles/:article_id
+
+res:
+
+```json
+{
+    "code": 200,
+    "message": "success".
+    "data": {
+        "article_id": 2,
+        "title": "a title",
+        "created_at": 12211033,
+        "modified_at": 16125652,
+        "content": "some content",
+        "user_id": 1,
+        "category_id": 2,
+        "tags": "java,python,sql",
+        "display": true,
+        "collect_count": 22,
+        "star_count": 23,
+        "comment_count": 320
     }
 }
 ```
@@ -162,7 +263,10 @@ res:
         "user_id": 1,
         "category_id": 2,
         "tags": "java,python,sql",
-        "display": true
+        "display": true,
+        "collect_count": 22,
+        "star_count": 23,
+        "comment_count": 320
     }
 }
 ```
@@ -195,7 +299,10 @@ res:
         "user_id": 1,
         "category_id": 2,
         "tags": "java,python,sql",
-        "display": true
+        "display": true,
+        "collect_count": 22,
+        "star_count": 23,
+        "comment_count": 320
     }
 }
 ```
@@ -217,9 +324,432 @@ res:
         "user_id": 1,
         "category_id": 2,
         "tags": "java,python,sql",
-        "display": true
+        "display": true,
+        "collect_count": 22,
+        "star_count": 23,
+        "comment_count": 320
     }
 }
 ```
 
 ## Comment
+
+GET /comments/latest/:count
+
+res:
+
+```json
+{
+    "code": 200,
+    "message": "success",
+    "data": [
+        {
+            "comment_id": 1,
+            "user_id": 2,
+            "content": "blala",
+            "parent_id": 1,
+            "root_id": 2,
+            "created_at": 13512312331,
+            "article_id": 2
+        },
+        {
+            "comment_id": 2,
+            "user_id": 2,
+            "content": "blala",
+            "parent_id": 1,
+            "root_id": 2,
+            "created_at": 13512312331,
+            "article_id": 2
+        }
+    ]
+}
+```
+
+POST /comments
+
+req:
+
+```json
+{
+    "user_id": 1,
+    "article_id": 2, (一级评论需要提供)
+    "content": "some content",
+    "parent_id": null,
+}
+```
+
+res:
+
+```json
+{
+    "code": 200,
+    "message": "success",
+    "data": {
+        "comment_id": 1,
+        "user_id": 1,
+        "article_id": 2,
+        "content": "some content",
+        "parent_id": null,
+        "root_id": null
+    }
+}
+```
+
+## 涉及多表的API
+
+### 根据user_id, 获取他写的文章
+
+GET /users/:user_id/write/articles
+
+res:
+
+```json
+{
+    "code": 200,
+    "message": "success",
+    "data": {
+        "total": 234,
+        "articles": [
+            {
+                "article_id": 1,
+                "title": "a title",
+                "created_at": 12211033,
+                "modified_at": 16125652,
+                "content": "some content",
+                "user_id": 1,
+                "category_id": 2,
+                "tags": "java,python,sql",
+                "display": true,
+                "collect_count": 22,
+                "star_count": 23,
+                "comment_count": 320
+            },
+            {
+                "article_id": 2,
+                "title": "a title",
+                "created_at": 12211033,
+                "modified_at": 16125652,
+                "content": "some content",
+                "user_id": 1,
+                "category_id": 2,
+                "tags": "java,python,sql",
+                "display": true,
+                "collect_count": 22,
+                "star_count": 23,
+                "comment_count": 320
+            }
+        ]
+    }
+}
+```
+
+### 根据user_id, 获取他点赞的的文章
+
+GET /users/:user_id/star/articles
+
+res:
+
+```json
+{
+    "code": 200,
+    "message": "success",
+    "data": {
+        "total": 234,
+        "articles": [
+            {
+                "article_id": 1,
+                "title": "a title",
+                "created_at": 12211033,
+                "modified_at": 16125652,
+                "content": "some content",
+                "user_id": 1,
+                "category_id": 2,
+                "tags": "java,python,sql",
+                "display": true,
+                "collect_count": 22,
+                "star_count": 23,
+                "comment_count": 320
+            },
+            {
+                "article_id": 2,
+                "title": "a title",
+                "created_at": 12211033,
+                "modified_at": 16125652,
+                "content": "some content",
+                "user_id": 1,
+                "category_id": 2,
+                "tags": "java,python,sql",
+                "display": true,
+                "collect_count": 22,
+                "star_count": 23,
+                "comment_count": 320
+            }
+        ]
+    }
+}
+```
+
+### 根据user_id, 获取他收藏的文章
+
+GET /users/:user_id/collect/articles
+
+res:
+
+```json
+{
+    "code": 200,
+    "message": "success",
+    "data": {
+        "total": 234,
+        "articles": [
+            {
+                "article_id": 1,
+                "title": "a title",
+                "created_at": 12211033,
+                "modified_at": 16125652,
+                "content": "some content",
+                "user_id": 1,
+                "category_id": 2,
+                "tags": "java,python,sql",
+                "display": true,
+                "collect_count": 22,
+                "star_count": 23,
+                "comment_count": 320
+            },
+            {
+                "article_id": 2,
+                "title": "a title",
+                "created_at": 12211033,
+                "modified_at": 16125652,
+                "content": "some content",
+                "user_id": 1,
+                "category_id": 2,
+                "tags": "java,python,sql",
+                "display": true,
+                "collect_count": 22,
+                "star_count": 23,
+                "comment_count": 320
+            }
+        ]
+    }
+}
+```
+
+### 根据user_id, 获取他评论的文章
+
+GET /users/:user_id/comment/articles
+
+res:
+
+```json
+{
+    "code": 200,
+    "message": "success",
+    "data": {
+        "total": 234,
+        "articles": [
+            {
+                "article_id": 1,
+                "title": "a title",
+                "created_at": 12211033,
+                "modified_at": 16125652,
+                "content": "some content",
+                "user_id": 1,
+                "category_id": 2,
+                "tags": "java,python,sql",
+                "display": true,
+                "collect_count": 22,
+                "star_count": 23,
+                "comment_count": 320
+            },
+            {
+                "article_id": 2,
+                "title": "a title",
+                "created_at": 12211033,
+                "modified_at": 16125652,
+                "content": "some content",
+                "user_id": 1,
+                "category_id": 2,
+                "tags": "java,python,sql",
+                "display": true,
+                "collect_count": 22,
+                "star_count": 23,
+                "comment_count": 320
+            }
+        ]
+    }
+}
+```
+
+### 根据article_id获取该文章的所有评论
+
+GET /articles/:article_id/comments (返回该文章所有一级评论)
+
+res:
+
+```json
+{
+    "code": 200,
+    "message": "success",
+    "data": [
+        {
+            "comment_id": 1,
+            "user_id": 1,
+            "article_id": 2,
+            "content": "some content",
+            "parent_id": null,
+            "root_id": null
+        },
+        {
+            "comment_id": 1,
+            "user_id": 1,
+            "article_id": 2,
+            "content": "some content",
+            "parent_id": null,
+            "root_id": null
+        }
+    ]
+}
+```
+
+GET /comments/:comment_id/sub_comments (返回该评论的所有自评论)
+
+res:
+
+```json
+{
+    "code": 200,
+    "message": "success",
+    "data": [
+        {
+            "comment_id": 1,
+            "user_id": 1,
+            "article_id": 2,
+            "content": "some content",
+            "parent_id": 1,
+            "root_id": 1
+        },
+        {
+            "comment_id": 1,
+            "user_id": 1,
+            "article_id": 2,
+            "content": "some content",
+            "parent_id": 1,
+            "root_id": 1
+        }
+    ]
+}
+```
+
+### 根据user_id, article_id, 点赞或者取消
+
+POST /add-star
+
+req:
+
+```json
+{
+    "user_id": 1,
+    "article_id": 1
+}
+```
+
+res:
+
+```json
+{
+    "code": 200,
+    "message": "success",
+    "data": {
+        "star_id": 1,
+        "user_id": 1,
+        "article_id": 1
+    }
+}
+```
+
+POST /delete-star
+
+req:
+
+```json
+{
+    "user_id": 1,
+    "article_id": 1
+}
+```
+
+res:
+
+```json
+{
+    "code": 200,
+    "message": "success",
+    "data": {
+        "star_id": 1,
+        "user_id": 1,
+        "article_id": 1
+    }
+}
+```
+
+### 根据user_id, article_id, 收藏或者取消
+
+POST /add-collect
+
+req:
+
+```json
+{
+    "user_id": 1,
+    "article_id": 1
+}
+```
+
+res:
+
+```json
+{
+    "code": 200,
+    "message": "success",
+    "data": {
+        "collect_id": 1,
+        "user_id": 1,
+        "article_id": 1,
+        "created_at": 1231245255
+    }
+}
+```
+
+POST /delete-collect
+
+req:
+
+```json
+{
+    "user_id": 1,
+    "article_id": 1
+}
+```
+
+res:
+
+```json
+{
+    "code": 200,
+    "message": "success",
+    "data": {
+        "collect_id": 1,
+        "user_id": 1,
+        "article_id": 1,
+        "created_at": 1234242356
+    }
+}
+```
+
+###
+
+<form action="/url">
+    <input type="file" name="user_id">
+    <button submit>
+</form>
