@@ -4,7 +4,7 @@
 
 ### User
 
-GET /admin/users?page=1&size=20 (不返回admin))
+__1__ GET /admin/users?page=1&size=20 (不返回admin)
 
 res:
 
@@ -40,7 +40,7 @@ res:
 
 ### Forbidden
 
-POST /admin/forbiddens
+__2__ POST /admin/forbiddens
 
 req:
 
@@ -65,7 +65,7 @@ res:
 }
 ```
 
-DELETE /admin/forbiddens/:user_id/:authority_id
+__3__ DELETE /admin/forbiddens/:user_id/:authority_id
 
 res:
 
@@ -83,7 +83,7 @@ res:
 
 ### Admin Login
 
-POST /admin/login
+__4__ POST /admin/login
 
 req:
 
@@ -108,7 +108,7 @@ res:
 
 ### Admin Article
 
-GET /admin/articles?category_id=1&page=1&size=30
+__5__ GET /admin/articles?category_id=1&page=1&size=30
 
 res:
 
@@ -146,7 +146,7 @@ res:
 }
 ```
 
-DELETE /admin/articles/:article_id
+__6__ DELETE /admin/articles/:article_id
 
 res:
 
@@ -168,7 +168,7 @@ res:
 }
 ```
 
-PUT /admin/articles/:article_id
+__7__ PUT /admin/articles/:article_id
 
 req:
 
@@ -200,7 +200,7 @@ res:
 
 ### Admin Comments
 
-GET /admin/comments?article_id=2&root_id=1&page=1&size=30
+__8__ GET /admin/comments?article_id=2&root_id=1&page=1&size=30
 
 res:
 
@@ -234,7 +234,7 @@ res:
 }
 ```
 
-DELETE /admin/comments/:comment_id
+__9__ DELETE /admin/comments/:comment_id
 
 res:
 
@@ -256,7 +256,7 @@ res:
 
 ### Manage Category
 
-GET /admin/categories
+__10__ GET /admin/categories
 
 res:
 
@@ -279,7 +279,7 @@ res:
 }
 ```
 
-POST /admin/categories
+__11__ POST /admin/categories
 
 req:
 
@@ -304,7 +304,7 @@ res:
 }
 ```
 
-PUT /admin/categories/:category_id
+__12__ PUT /admin/categories/:category_id
 
 req:
 
@@ -328,7 +328,7 @@ res:
 }
 ```
 
-DELETE /admin/categories/:category_id
+__13__ DELETE /admin/categories/:category_id
 
 res:
 
@@ -344,7 +344,7 @@ res:
 
 ### Admin Authorities
 
-GET /admin/authorities
+__14__ GET /admin/authorities
 
 res:
 
