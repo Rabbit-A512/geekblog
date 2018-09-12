@@ -200,7 +200,7 @@ res:
 
 ### Admin Comments
 
-__8__ GET /admin/comments?article_id=2&root_id=1&page=1&size=30
+__8__ GET /admin/comments?article_id=2&page=1&size=30
 
 res:
 
