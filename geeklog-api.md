@@ -612,7 +612,7 @@ res:
 }
 ```
 
-__19__ GET /comments/:comment_id/sub_comments (返回该评论的所有自评论)
+__19__ GET /comments/:comment_id/sub_comments (返回该评论的所有子评论)
 
 res:
 
