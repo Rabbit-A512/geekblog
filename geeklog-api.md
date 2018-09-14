@@ -4,7 +4,7 @@
 
 ### User Login
 
-__1__ POST /login
+√ __1__ POST /login
 
 req:
 
@@ -27,7 +27,7 @@ res:
 }
 ```
 
-__2__ GET /users/:user_id
+√ __2__ GET /users/:user_id
 
 res:
 

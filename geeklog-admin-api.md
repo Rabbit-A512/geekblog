@@ -1,6 +1,6 @@
 # Geeklog Api
 
-## 管理后台Api(/admin/*)
+## 管理后台Api(/admin/*) （__已完成__）
 
 ### User
 
