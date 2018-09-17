@@ -122,6 +122,24 @@ req:
 }
 ```
 
+res:
+
+```json
+{
+    "code": 200,
+    "message": "success",
+    "data": {
+        "username": "loginname",
+        "nickname": "a-nick-name",
+        "avatar": "指向默认图片的路径",
+        "bio": "some info about me",
+        "is_admin": false,
+        "can_comment": true,
+        "can_write_article": true
+    }
+}
+```
+
 ## Article
 
 __6__ GET /articles/hot/:count (根据点赞数＋收藏数＋评论数排序，获取最热文章)
@@ -755,4 +773,29 @@ res:
     <input id="avatar" type="file" name="user_id">
     <button type="submit">上传</button>
 </form>
+```
+
+### Categories
+
+GET /categories
+
+res:
+
+```json
+{
+    "code": 200,
+    "message": "fetch success",
+    "data": [
+        {
+            "category_id": 1,
+            "name": "frontend",
+            "description": "some descr"
+        },
+        {
+            "category_id": 2,
+            "name": "frontend",
+            "description": "some descr"
+        }
+    ]
+}
 ```
