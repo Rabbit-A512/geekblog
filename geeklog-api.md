@@ -775,6 +775,52 @@ res:
 </form>
 ```
 
+POST /avatars/:user_id (新增或覆盖头像))
+
+req: form-data
+
+res:
+
+```json
+{
+    "code": 200,
+    "message": "Success",
+    "data": {
+        "user_id": 1,
+        "username": "loginname",
+        "nickname": "a-nick-name",
+        "bio": "some info about me",
+        "avatar": "http://....",
+        "is_admin": false,
+        "can_comment": true,
+        "can_write_article": true
+    }
+}
+```
+
+DELETE /avatars/:user_id
+
+res:
+
+res:
+
+```json
+{
+    "code": 200,
+    "message": "Success",
+    "data": {
+        "user_id": 1,
+        "username": "loginname",
+        "nickname": "a-nick-name",
+        "bio": "some info about me",
+        "avatar": null,
+        "is_admin": false,
+        "can_comment": true,
+        "can_write_article": true
+    }
+}
+```
+
 ### Categories
 
 GET /categories
