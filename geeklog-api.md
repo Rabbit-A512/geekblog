@@ -417,7 +417,7 @@ res:
 
 ### 根据user_id, 获取他写的文章
 
-__14__ GET /users/:user_id/write/articles
+__14__ GET /users/:user_id/write/articles?page=1&size=20
 
 res:
 
@@ -463,7 +463,7 @@ res:
 
 ### 根据user_id, 获取他点赞的的文章
 
-__15__ GET /users/:user_id/star/articles
+__15__ GET /users/:user_id/star/articles?page=1&size=20
 
 res:
 
@@ -509,7 +509,7 @@ res:
 
 ### 根据user_id, 获取他收藏的文章
 
-__16__ GET /users/:user_id/collect/articles
+__16__ GET /users/:user_id/collect/articles?page=1&size=20
 
 res:
 
@@ -553,9 +553,9 @@ res:
 }
 ```
 
-### 根据user_id, 获取他评论的文章
+### 根据user_id, 获取他最新的评论
 
-__17__ GET /users/:user_id/comment/articles
+__17__ GET /users/:user_id/comments?page=1&size=20
 
 res:
 
@@ -565,34 +565,22 @@ res:
     "message": "success",
     "data": {
         "total": 234,
-        "articles": [
+        "comments": [
             {
-                "article_id": 1,
-                "title": "a title",
-                "created_at": 12211033,
-                "modified_at": 16125652,
-                "content": "some content",
+                "comment_id": 1,
                 "user_id": 1,
-                "category_id": 2,
-                "tags": "java,python,sql",
-                "display": true,
-                "collect_count": 22,
-                "star_count": 23,
-                "comment_count": 320
+                "article_id": 2,
+                "content": "some content",
+                "parent_id": null,
+                "root_id": null
             },
             {
-                "article_id": 2,
-                "title": "a title",
-                "created_at": 12211033,
-                "modified_at": 16125652,
-                "content": "some content",
+                "comment_id": 1,
                 "user_id": 1,
-                "category_id": 2,
-                "tags": "java,python,sql",
-                "display": true,
-                "collect_count": 22,
-                "star_count": 23,
-                "comment_count": 320
+                "article_id": 2,
+                "content": "some content",
+                "parent_id": null,
+                "root_id": null
             }
         ]
     }
@@ -601,7 +589,7 @@ res:
 
 ### 根据article_id获取该文章的所有评论
 
-__18__ GET /articles/:article_id/comments (返回该文章所有一级评论)
+__18__ GET /articles/:article_id/comments?page=1&size=20 (返回该文章所有一级评论)
 
 res:
 
@@ -609,28 +597,31 @@ res:
 {
     "code": 200,
     "message": "success",
-    "data": [
-        {
-            "comment_id": 1,
-            "user_id": 1,
-            "article_id": 2,
-            "content": "some content",
-            "parent_id": null,
-            "root_id": null
-        },
-        {
-            "comment_id": 1,
-            "user_id": 1,
-            "article_id": 2,
-            "content": "some content",
-            "parent_id": null,
-            "root_id": null
-        }
-    ]
+    "data": {
+        "total": 234,
+        "comments": [
+            {
+                "comment_id": 1,
+                "user_id": 1,
+                "article_id": 2,
+                "content": "some content",
+                "parent_id": null,
+                "root_id": null
+            },
+            {
+                "comment_id": 1,
+                "user_id": 1,
+                "article_id": 2,
+                "content": "some content",
+                "parent_id": null,
+                "root_id": null
+            }
+        ]
+    }
 }
 ```
 
-__19__ GET /comments/:comment_id/sub_comments (返回该评论的所有子评论)
+__19__ GET /comments/:comment_id/sub_comments?page=1&size=20 (返回该评论的所有子评论)
 
 res:
 
@@ -638,24 +629,27 @@ res:
 {
     "code": 200,
     "message": "success",
-    "data": [
-        {
-            "comment_id": 1,
-            "user_id": 1,
-            "article_id": 2,
-            "content": "some content",
-            "parent_id": 1,
-            "root_id": 1
-        },
-        {
-            "comment_id": 1,
-            "user_id": 1,
-            "article_id": 2,
-            "content": "some content",
-            "parent_id": 1,
-            "root_id": 1
-        }
-    ]
+    "data": {
+        "total": 234,
+        "comments": [
+            {
+                "comment_id": 1,
+                "user_id": 1,
+                "article_id": 2,
+                "content": "some content",
+                "parent_id": null,
+                "root_id": null
+            },
+            {
+                "comment_id": 1,
+                "user_id": 1,
+                "article_id": 2,
+                "content": "some content",
+                "parent_id": null,
+                "root_id": null
+            }
+        ]
+    }
 }
 ```
 
