@@ -234,7 +234,7 @@ res:
 ```json
 {
     "code": 200,
-    "message": "success".
+    "message": "success",
     "data": {
         "article_id": 2,
         "title": "a title",
@@ -769,7 +769,7 @@ res:
 </form>
 ```
 
-POST /avatars/:user_id (新增或覆盖头像))
+POST /avatars/:user_id (新增或覆盖头像)
 
 req: form-data
 
