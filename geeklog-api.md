@@ -839,3 +839,29 @@ res:
     ]
 }
 ```
+
+### 获得当前的点赞/收藏情况
+
+GET /is-starred/:user_id/:article_id
+
+res:
+
+```json
+{
+    "code": 200,
+    "message": "success",
+    "data": false
+}
+```
+
+GET /is-collected/:user_id/:article_id
+
+res:
+
+```json
+{
+    "code": 200,
+    "message": "success",
+    "data": true
+}
+```
