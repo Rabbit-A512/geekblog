@@ -893,9 +893,10 @@ res:
     "root_id": 2,
     "created_at": 13512312331,
     "article_id": 2,
-    "from_user_avatar": "http://....",
     "from_user_nickname": "syf",
+    "from_user_avatar": "http://....",
     "to_user_nickname": "rabbit",
+    "to_user_avatar": "http://....",
     "article_title": "SpringBoot简明教程"
 }
 ```
