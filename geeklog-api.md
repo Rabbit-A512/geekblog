@@ -865,3 +865,36 @@ res:
     "data": true
 }
 ```
+
+### 评论对象返回的修改(以一个评论对象为例，所有返回的评论数组都要修改)
+
+修改前的评论对象：
+
+```json
+{
+    "comment_id": 1,
+    "user_id": 2,
+    "content": "blala",
+    "parent_id": 1,
+    "root_id": 2,
+    "created_at": 13512312331,
+    "article_id": 2
+}
+```
+
+修改后的评论对象：
+
+```json
+{
+    "comment_id": 1,
+    "user_id": 2,
+    "content": "blala",
+    "parent_id": 1,
+    "root_id": 2,
+    "created_at": 13512312331,
+    "article_id": 2,
+    "from_user_nickname": "syf",
+    "to_user_nickname": "rabbit",
+    "article_title": "SpringBoot简明教程"
+}
+```
