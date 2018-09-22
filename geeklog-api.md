@@ -893,6 +893,7 @@ res:
     "root_id": 2,
     "created_at": 13512312331,
     "article_id": 2,
+    "from_user_avatar": "http://....",
     "from_user_nickname": "syf",
     "to_user_nickname": "rabbit",
     "article_title": "SpringBoot简明教程"
